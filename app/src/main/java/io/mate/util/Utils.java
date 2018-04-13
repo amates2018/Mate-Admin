@@ -1,5 +1,13 @@
 package io.mate.util;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlacePicker.IntentBuilder;
+
 import io.mate.data.Bus;
 import io.mate.data.Driver;
 import io.mate.data.Terminal;
@@ -44,6 +52,18 @@ public class Utils {
 	
 	private static void terminalUpload(Terminal data) {
 		//todo
+	}
+
+	//Get place
+	public static void getPlace(Activity host, int code) {
+		try {
+			Intent build = new IntentBuilder()
+					.build(host);
+			host.startActivityForResult(build, code);
+			
+		} catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException e) {
+			Toast.makeText(host, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 }
